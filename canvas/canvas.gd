@@ -21,7 +21,7 @@ func draw(pos):
 func finish_drawing(pos):
 	match _draw_mode:
 		Rider.DrawMode.STRAIGHT:
-			_lines[-1].finish(pos)
+			_lines[-1].finish_straight_line(pos)
 
 func stop_drawing():
 	# check if line empty and delete

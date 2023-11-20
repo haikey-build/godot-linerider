@@ -26,7 +26,7 @@ func update_last_point(newPos):
 	else:
 		_line.set_point_position(1, newPos)
 
-func finish(endPos):
+func finish_straight_line(endPos):
 	_line.set_point_position(1, endPos)
 	_add_new_section(_line.get_point_position(0), endPos)
 	
