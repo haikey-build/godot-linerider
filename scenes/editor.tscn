@@ -1,6 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk2e1eie4idx3"]
+[gd_scene load_steps=3 format=3 uid="uid://dk2e1eie4idx3"]
 
 [ext_resource type="Script" path="res://scenes/editor.gd" id="1_gndf5"]
+[ext_resource type="Texture2D" uid="uid://d2pxmanof38fc" path="res://characters/black-64.png" id="2_jpxll"]
 
 [node name="Editor" type="Node2D"]
 script = ExtResource("1_gndf5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="freehand" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "freehand"
+
+[node name="straight" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "straight"
+
+[node name="clear" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "clear"
+
+[node name="run" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "run"
+
+[node name="Black-64" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_jpxll")
+
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/freehand" to="." method="_on_freehand_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/straight" to="." method="_on_straight_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/clear" to="." method="_on_clear_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/run" to="." method="_on_run_pressed"]

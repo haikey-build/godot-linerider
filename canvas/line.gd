@@ -1,11 +1,11 @@
+class_name Line
 extends Node2D
 
 var _line: Line2D
 var _body: StaticBody2D
-var _draw_mode: Rider.DrawMode
+var _type: Rider.LineType
 
-func init(pos, draw_mode):
-	_draw_mode = draw_mode
+func init(pos):
 	_line = Line2D.new()
 	_line.joint_mode = Line2D.LINE_JOINT_ROUND
 	_line.width = 5
@@ -15,21 +15,10 @@ func init(pos, draw_mode):
 	_body = StaticBody2D.new()
 	add_child(_body)
 	
-		
-func add_new_point(newPos):
-	var prevPos = _get_last_point()
-	_add_new_section(prevPos, newPos)
+	_type = Rider.LineType.ACCELERATE
 
-func update_last_point(newPos):
-	if _line.get_point_count() == 1:
-		_line.add_point(newPos)
-	else:
-		_line.set_point_position(1, newPos)
-
-func finish_straight_line(endPos):
-	_line.set_point_position(1, endPos)
-	_add_new_section(_line.get_point_position(0), endPos)
-	
+func get_type():
+	return _type
 
 func _add_new_section(startPos, endPos):
 	_line.add_point(endPos)

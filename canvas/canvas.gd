@@ -1,28 +1,28 @@
 extends Node2D
 
-var _lineScene = preload("res://canvas/line.tscn")
+var _lineFreehandScene = preload("res://canvas/line_freehand.tscn")
+var _lineStraightScene = preload("res://canvas/line_straight.tscn")
 var _lines = []
-var _draw_mode
+
 
 func start_drawing(pos, draw_mode):
-	_draw_mode = draw_mode
-	var line = _lineScene.instantiate()
-	line.init(pos, _draw_mode)
+	var line
+	match draw_mode:
+		Rider.DrawMode.FREEHAND:
+			line = _lineFreehandScene.instantiate()
+		Rider.DrawMode.STRAIGHT:
+			line = _lineStraightScene.instantiate()
+	line.init(pos)
 	add_child(line)
 	_lines.push_back(line)
 	
 func draw(pos):
-	match _draw_mode:
-		Rider.DrawMode.FREEHAND:
-			_lines[-1].add_new_point(pos)
-		Rider.DrawMode.STRAIGHT:
-			_lines[-1].update_last_point(pos)
+	_lines[-1].update_draw(pos)
 
 func finish_drawing(pos):
-	match _draw_mode:
-		Rider.DrawMode.STRAIGHT:
-			_lines[-1].finish_straight_line(pos)
+	_lines[-1].finish_draw(pos)
 
-func stop_drawing():
-	# check if line empty and delete
-	pass
+func clear_lines():
+	for line in _lines:
+		line.queue_free()
+	_lines = []
