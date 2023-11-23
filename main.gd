@@ -16,11 +16,11 @@ func _physics_process(delta):
 			EDITING:
 				get_tree().quit()
 			RUNNING:
-				return_to_editor()
+				start_editor()
 	if Input.is_action_just_pressed("space"):
 		match _mode:
 			EDITING:
-				run()
+				start_runner()
 			RUNNING:
 				pass
 
@@ -28,9 +28,9 @@ func _ready():
 	_editor = _editorScene.instantiate()
 	add_child(_editor)
 	_canvas = _editor.init_empty()
-	_editor.set_run_func(run)
+	_editor.set_run_func(start_runner)
 
-func run():
+func start_runner():
 	_mode = RUNNING
 	_editor.remove_child(_canvas)
 	
@@ -40,14 +40,14 @@ func run():
 	
 	_editor.queue_free()
 
-func return_to_editor():
+func start_editor():
 	_mode = EDITING
 	_run.remove_child(_canvas)
 	
 	_editor = _editorScene.instantiate()
 	add_child(_editor)
 	_editor.init_load(_canvas)
-	_editor.set_run_func(run)
+	_editor.set_run_func(start_runner)
 	
 	_run.queue_free()
 	
