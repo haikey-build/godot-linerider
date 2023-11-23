@@ -7,3 +7,5 @@ enum LineType {
 enum DrawMode {
 	FREEHAND, STRAIGHT, ERASER
 }
+
+const LINE_ACCELERATION = 1500.0

@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk2e1eie4idx3"]
+[gd_scene load_steps=6 format=3 uid="uid://dk2e1eie4idx3"]
 
 [ext_resource type="Script" path="res://scenes/editor.gd" id="1_gndf5"]
 [ext_resource type="Texture2D" uid="uid://d2pxmanof38fc" path="res://characters/black-64.png" id="2_jpxll"]
+[ext_resource type="ButtonGroup" uid="uid://caeq8cxs2mcia" path="res://gui/button_group_draw_mode.tres" id="2_vix2n"]
+[ext_resource type="ButtonGroup" uid="uid://dog71g6xd222c" path="res://gui/button_group_line_mode.tres" id="3_rmwfe"]
+[ext_resource type="Texture2D" uid="uid://bd43be6excwgu" path="res://characters/Bosh.png" id="5_h1bwq"]
 
 [node name="Editor" type="Node2D"]
 script = ExtResource("1_gndf5")
@@ -16,33 +19,79 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
-[node name="freehand" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="freehand" type="Button" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
-text = "freehand"
+button_group = ExtResource("2_vix2n")
+text = "Freehand"
 
-[node name="straight" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="straight" type="Button" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "straight"
+toggle_mode = true
+button_group = ExtResource("2_vix2n")
+text = "Straight"
 
-[node name="clear" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="eraser" type="Button" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "clear"
+toggle_mode = true
+button_group = ExtResource("2_vix2n")
+text = "Eraser"
 
-[node name="run" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
-text = "run"
+mouse_filter = 0
+
+[node name="neutral" type="Button" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_rmwfe")
+text = "Neutral"
+
+[node name="accelerate" type="Button" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_rmwfe")
+text = "Accelerate"
+
+[node name="visual" type="Button" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_rmwfe")
+text = "Visual"
+
+[node name="clear" type="Button" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+text = "Clear"
+
+[node name="run" type="Button" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+text = "Run"
 
 [node name="Black-64" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_jpxll")
 
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/freehand" to="." method="_on_freehand_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/straight" to="." method="_on_straight_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/clear" to="." method="_on_clear_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/run" to="." method="_on_run_pressed"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, 5.68434e-14)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("5_h1bwq")
+
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/HBoxContainer/freehand" to="." method="_on_freehand_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/HBoxContainer/straight" to="." method="_on_straight_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/HBoxContainer/eraser" to="." method="_on_eraser_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/HBoxContainer2/neutral" to="." method="_on_neutral_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/HBoxContainer2/accelerate" to="." method="_on_accelerate_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/HBoxContainer2/visual" to="." method="_on_visual_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/clear" to="." method="_on_clear_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/run" to="." method="_on_run_pressed"]
